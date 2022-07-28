@@ -2,6 +2,7 @@
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DataAccess.Concrete.InMemory
@@ -22,22 +23,35 @@ namespace DataAccess.Concrete.InMemory
         }
         public void Add(Product product)
         {
-            throw new NotImplementedException();
+            _products.Add(product);
         }
 
         public void Delete(Product product)
         {
-            throw new NotImplementedException();
+            //LINQ - Language Integrated Query
+            //Lambda - =>
+            Product productToDelete = _products.SingleOrDefault(p=>p.ProductId ==product.ProductId);
+            //singleordefault 1 eleman arar - her p için p nin idsi benim gönderdiğim ürünün idsine eşitse referansları eşitle
         }
 
         public List<Product> GetAll()
         {
-            throw new NotImplementedException();
+            return _products;
+        }
+
+        public List<Product> GetAllByCategory(int categoryId)
+        {
+            return _products.Where(p => p.CategoryId == categoryId).ToList();
         }
 
         public void Update(Product product)
         {
-            throw new NotImplementedException();
+            //Gönderdiğim ürün id'sine sahip olan listedeki ürünü bul
+            Product productToUpdate = _products.SingleOrDefault(p => p.ProductId == product.ProductId);
+            productToUpdate.ProductName = product.ProductName;
+            productToUpdate.CategoryId = product.CategoryId;
+            productToUpdate.UnitPrice = product.UnitPrice;
+            productToUpdate.UnitsInStock = product.UnitsInStock;
         }
     }
 }
