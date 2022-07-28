@@ -19,7 +19,7 @@ namespace Business
         public List<Product> GetAll()
         {
             //İş kodları
-            //Yetkisi var mı?
+            //Yetkisi var mı
             return _productDal.GetAll();
 
                
