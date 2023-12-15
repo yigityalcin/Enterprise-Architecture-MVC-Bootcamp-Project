@@ -31,7 +31,7 @@ namespace DataAccess.Concrete.InMemory
         {
             //LINQ - Language Integrated Query
             //Lambda - =>
-            Product productToDelete = _products.SingleOrDefault(p=>p.ProductId ==product.ProductId);
+            Product productToDelete = _products.SingleOrDefault(p => p.ProductId == product.ProductId);
             //singleordefault 1 eleman arar - her p için p nin idsi benim gönderdiğim ürünün idsine eşitse referansları eşitle
         }
 
