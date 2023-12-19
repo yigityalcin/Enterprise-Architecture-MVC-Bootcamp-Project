@@ -12,21 +12,9 @@ namespace ConsoleUI
         //Open Closed Principle : Yeni bir özellik eklerken mevcuttaki hiçbir koda dokunamayız.
         static void Main(string[] args)
         {
-            //ProductTest();
+            ProductTest();
             //CategoryTest();
-            //ProductDetailTest();
-
         }
-
-        private static void ProductDetailTest()
-        {
-            ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var product in productManager.GetProductDetails())
-            {
-                Console.WriteLine(product.ProductName + "/" + product.CategoryName);
-            }
-        }
-
         private static void CategoryTest()
         {
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
@@ -35,14 +23,22 @@ namespace ConsoleUI
                 Console.WriteLine(category.CategoryName);
             }
         }
-
         private static void ProductTest()
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var product in productManager.GetByUnitPrice(40, 100))
+            var result = productManager.GetProductDetails();
+            if (result.Success == true)
             {
-                Console.WriteLine(product.ProductName);
+                foreach (var product in result.Data)
+                {
+                    Console.WriteLine(product.ProductName + "/" + product.CategoryName);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
         }
     }
 }
