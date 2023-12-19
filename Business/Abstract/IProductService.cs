@@ -9,12 +9,12 @@ namespace Business
 {
     public interface IProductService
     {
-        List<Product> GetAll();//product list döndürüyor
-        List<Product> GetAllByCategoryId(int id);//category idsine göre getiren kod
-        List<Product> GetByUnitPrice(decimal min, decimal max);
-        List<ProductDetailDto> GetProductDetails();//list of product detail
-        Product GetById(int productId);//single product döndürür.
-        IResult Add(Product product);//herhangi bir şey döndürmüyor (void).
+        IDataResult<List<Product>> GetAll(); //IDataResulttaki generic T'miz Product. List of product.
+        IDataResult<List<Product>> GetAllByCategoryId(int id); //category idsine göre getiren kod
+        IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max);
+        IDataResult<List<ProductDetailDto>> GetProductDetails(); //list of product detail
+        IDataResult<Product> GetById(int productId); //single product döndürür.
+        IResult Add(Product product); //herhangi bir şey döndürmüyor (void).
 
     }
 }
