@@ -13,6 +13,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IProductService,ProductManager>(); // Birisi IProductService isterse ona arka planda bir ProductManager oluþtur ve onu ver..
 builder.Services.AddSingleton<IProductDal, EfProductDal>();
 
+//Autofac, Ninject, Castlewindsor, StructureMap, LightInject, DryInject --> IoC Container
+//gitpush 11.ders
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
