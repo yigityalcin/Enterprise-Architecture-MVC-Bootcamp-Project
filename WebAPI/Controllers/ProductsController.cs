@@ -12,7 +12,7 @@ namespace WebAPI.Controllers
     {
         //Loosely coupled
         //Dependency injection
-        //Ioc Container
+        //Ioc Container -- Inversion of Control
         IProductService _productService; //naming convention _productService
 
         public ProductsController(IProductService productService)
@@ -21,11 +21,15 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public List<Product> Get()
+        public IActionResult Get()
         {
             //Dependency chain
             var result = _productService.GetAll();
-            return result.Data;
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
     }
 }

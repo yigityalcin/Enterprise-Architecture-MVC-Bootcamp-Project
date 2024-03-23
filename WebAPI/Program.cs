@@ -10,11 +10,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IProductService,ProductManager>(); // Birisi IProductService isterse ona arka planda bir ProductManager oluþtur ve onu ver..
+builder.Services.AddSingleton<IProductService,ProductManager>(); // Birisi IProductService isterse ona arka planda(newle) bir ProductManager oluþtur ve onu ver..
 builder.Services.AddSingleton<IProductDal, EfProductDal>();
 
 //Autofac, Ninject, Castlewindsor, StructureMap, LightInject, DryInject --> IoC Container
-//gitpush 11.ders
+//AOP
 
 var app = builder.Build();
 
