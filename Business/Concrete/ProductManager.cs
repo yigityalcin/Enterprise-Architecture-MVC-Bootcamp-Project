@@ -17,6 +17,7 @@ namespace Business
     public class ProductManager : IProductService
     {
         IProductDal _productDal;
+
         public ProductManager(IProductDal productDal)
         {
             _productDal = productDal;
@@ -25,10 +26,11 @@ namespace Business
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
-            //business codes
+                //business codes
 
-            _productDal.Add(product);
-            return new Result(true, Messages.ProductAdded);
+                _productDal.Add(product);
+                return new Result(true, Messages.ProductAdded);
+            
         }
 
         public IDataResult<List<Product>> GetAll()
