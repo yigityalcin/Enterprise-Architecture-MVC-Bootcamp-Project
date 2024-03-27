@@ -15,6 +15,8 @@ namespace Business
         IDataResult<List<ProductDetailDto>> GetProductDetails(); //list of product detail
         IDataResult<Product> GetById(int productId); //single product döndürür.
         IResult Add(Product product); //herhangi bir şey döndürmüyor (void).
+        IResult Update(Product product);
+
 
     }
 }
