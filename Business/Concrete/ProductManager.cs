@@ -27,7 +27,7 @@ namespace Business
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {   //business code
-            //Bir kategoride en fazla 10 ürün olabilir.
+            //Bir kategoride en fazla 10 ürün olabilir
             if (CheckIfProductCountOfCategoryCorrect(product.CategoryId).Success)
             {
                 if (CheckIfProductNameExists(product.ProductName).Success)
@@ -51,8 +51,7 @@ namespace Business
         }
 
         private IResult CheckIfProductNameExists(string productName)
-        {
-            //Select count(*) from products where categoryId=1
+        {         
             var result = _productDal.GetAll(p => p.ProductName == productName).Any();
             if (result)
             {
