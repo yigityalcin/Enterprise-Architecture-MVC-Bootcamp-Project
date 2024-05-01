@@ -2,6 +2,7 @@
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
@@ -28,15 +29,14 @@ namespace Business
         public IResult Add(Product product)
         {   //business code
             //Bir kategoride en fazla 10 ürün olabilir
-            if (CheckIfProductCountOfCategoryCorrect(product.CategoryId).Success)
+            IResult  result = BusinessRules.Run(CheckIfProductNameExists(product.ProductName), CheckIfProductCountOfCategoryCorrect(product.CategoryId));
+
+            if (result != null)
             {
-                if (CheckIfProductNameExists(product.ProductName).Success)
-                {
-                    _productDal.Add(product);
-                    return new SuccessResult(Messages.ProductAdded);
-                }              
+                return result;
             }
-            return new ErrorResult();        
+            _productDal.Add(product);
+            return new SuccessResult(Messages.ProductAdded);               
         }
 
         private IResult CheckIfProductCountOfCategoryCorrect(int categoryId)
