@@ -41,7 +41,7 @@ namespace Business
 
         private IResult CheckIfProductCountOfCategoryCorrect(int categoryId)
         {
-            //Select count(*) from products where categoryId=1
+            //Select count(*) from products where categoryId=1..
             var result = _productDal.GetAll(p => p.CategoryId == categoryId).Count;
             if (result > 15)
             {
