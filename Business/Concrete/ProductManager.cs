@@ -1,4 +1,5 @@
-﻿using Business.Constants;
+﻿using Business.Abstract;
+using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
@@ -19,17 +20,20 @@ namespace Business
     public class ProductManager : IProductService
     {
         IProductDal _productDal;
+        ICategoryService _categoryService;
 
-        public ProductManager(IProductDal productDal)
+        public ProductManager(IProductDal productDal, ICategoryService categoryService)
         {
             _productDal = productDal;
+            _categoryService = categoryService;
         }
 
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {   //business code
             //Bir kategoride en fazla 10 ürün olabilir
-            IResult  result = BusinessRules.Run(CheckIfProductNameExists(product.ProductName), CheckIfProductCountOfCategoryCorrect(product.CategoryId));
+            IResult  result = BusinessRules.Run(CheckIfProductNameExists(product.ProductName), 
+                CheckIfProductCountOfCategoryCorrect(product.CategoryId), CheckIfCategoryLimitExceeded());
 
             if (result != null)
             {
@@ -59,7 +63,16 @@ namespace Business
             }
             return new SuccessResult();
         }
+        private IResult CheckIfCategoryLimitExceeded()
+        {
+            var result = _categoryService.GetAll();
+            if (result.Data.Count > 15)
+            {
+                return new ErrorResult(Messages.CategoryLimitExceeded);
+            }
+            return new SuccessResult();
 
+        }
         public IDataResult<List<Product>> GetAll()
         {
             //business codes           
