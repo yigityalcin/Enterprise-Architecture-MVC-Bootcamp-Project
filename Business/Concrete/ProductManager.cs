@@ -28,6 +28,7 @@ namespace Business
             _categoryService = categoryService;
         }
 
+        //[SecuredOperation("product.add")]
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {   //business code
