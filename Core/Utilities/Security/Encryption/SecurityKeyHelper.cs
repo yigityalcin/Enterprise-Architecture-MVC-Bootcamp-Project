@@ -11,6 +11,6 @@ public class SecurityKeyHelper
 {
     public static SecurityKey CreateSecurityKey(string securtiyKey)
     {
-        return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securtiyKey))
+        return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securtiyKey));
     }
 }
