@@ -5,18 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.Constants
+namespace Business.Constants;
+
+public static class Messages
 {
-    public static class Messages
-    {
-        public static string ProductAdded = "Ürün eklendi";
-        public static string ProductNameInvalid = "Ürün ismi geçersiz";
-        public static string MaintenanceTime ="Sistem bakımda";
-        public static string ProductsListed = "Ürünler Listelendi";
-        public static string ProductCountOfCategoryError = "Kategori sayısı aşıldı(15'dan fazla olamaz)";
-        public static string ProductNameAlreadyExists = "Aynı isimde ürün mevcut!";
-        public static string CategoryLimitExceeded = "Kategori limiti aşıldığı için yeni ürün eklenemiyor.";
-        public static string AuthorizationDenied = "Yetkiniz yok.";
-        public static string AccessTokenCreated = "Token oluşturuldu";
-    }
+    public static string ProductAdded = "Ürün eklendi";
+    public static string ProductNameInvalid = "Ürün ismi geçersiz";
+    public static string MaintenanceTime ="Sistem bakımda";
+    public static string ProductsListed = "Ürünler Listelendi";
+    public static string ProductCountOfCategoryError = "Kategori sayısı aşıldı(15'dan fazla olamaz)";
+    public static string ProductNameAlreadyExists = "Aynı isimde ürün mevcut!";
+    public static string CategoryLimitExceeded = "Kategori limiti aşıldığı için yeni ürün eklenemiyor.";
+    public static string AuthorizationDenied = "Yetkiniz yok.";
+    public static string AccessTokenCreated = "Token oluşturuldu";
 }
