@@ -34,7 +34,7 @@ public class ProductManager : IProductService
     public IResult Add(Product product)
     {   //business code
         //Bir kategoride en fazla 10 ürün olabilir
-        IResult  result = BusinessRules.Run(CheckIfProductNameExists(product.ProductName), 
+        IResult result = BusinessRules.Run(CheckIfProductNameExists(product.ProductName),
             CheckIfProductCountOfCategoryCorrect(product.CategoryId), CheckIfCategoryLimitExceeded());
 
         if (result != null)
@@ -42,7 +42,7 @@ public class ProductManager : IProductService
             return result;
         }
         _productDal.Add(product);
-        return new SuccessResult(Messages.ProductAdded);               
+        return new SuccessResult(Messages.ProductAdded);
     }
 
     private IResult CheckIfProductCountOfCategoryCorrect(int categoryId)
@@ -57,7 +57,7 @@ public class ProductManager : IProductService
     }
 
     private IResult CheckIfProductNameExists(string productName)
-    {         
+    {
         var result = _productDal.GetAll(p => p.ProductName == productName).Any();
         if (result)
         {
@@ -75,14 +75,16 @@ public class ProductManager : IProductService
         return new SuccessResult();
 
     }
+
+    [CacheAspect]
     public IDataResult<List<Product>> GetAll()
     {
-        //business codes           
+        //business codes
         //Yetkisi var mıı
-        //if (DateTime.Now.Hour == 22)
-        //{
-        //    return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
-        //}
+        if (DateTime.Now.Hour == 1)
+        {
+            return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
+        }
         return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductsListed);
     }
 
