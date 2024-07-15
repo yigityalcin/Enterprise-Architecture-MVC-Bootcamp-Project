@@ -2,6 +2,7 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
@@ -76,11 +77,10 @@ public class ProductManager : IProductService
 
     }
 
-    [CacheAspect]
+    [CacheAspect]//key, value
     public IDataResult<List<Product>> GetAll()
     {
         //business codes
-        //Yetkisi var mıı
         if (DateTime.Now.Hour == 1)
         {
             return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
@@ -93,6 +93,7 @@ public class ProductManager : IProductService
         return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == id));
     }
 
+    [CacheAspect]
     public IDataResult<Product> GetById(int productId)
     {
         return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId));
