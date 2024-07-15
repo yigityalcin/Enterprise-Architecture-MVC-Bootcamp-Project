@@ -16,7 +16,7 @@ namespace Business
         IDataResult<Product> GetById(int productId); //single product döndürür.
         IResult Add(Product product); //herhangi bir şey döndürmüyor (void).
         IResult Update(Product product);
-
+        IResult AddTransactionalTest(Product product);
 
     }
 }
