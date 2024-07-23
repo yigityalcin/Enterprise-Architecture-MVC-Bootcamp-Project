@@ -18,7 +18,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddCors();
+
+// CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder.WithOrigins("http://localhost:4200")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod());
+});
 
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -61,8 +69,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(builder=>builder.WithOrigins("http://localhost:4200/").AllowAnyHeader() );//frontend için 4200 adresinden bir istek gelirse izin ver.
-//AllowAnyHeader = ne gelirse izin ver ,  get post put 
+app.UseCors("AllowSpecificOrigin");
+
+//app.UseCors(builder => builder.WithOrigins("http://localhost:4200/").AllowAnyHeader());//frontend için 4200 adresinden bir istek gelirse izin ver.
+//AllowAnyHeader = ne gelirse izin ver , get post put 
 
 app.UseHttpsRedirection();
 

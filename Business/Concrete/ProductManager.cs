@@ -84,10 +84,10 @@ public class ProductManager : IProductService
     public IDataResult<List<Product>> GetAll()
     {
         //business codes
-        if (DateTime.Now.Hour == 1)
-        {
-            return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
-        }
+        //if (DateTime.Now.Hour == 1)
+        //{
+        //    return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
+        //}
         return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductsListed);
     }
 
